@@ -54,33 +54,17 @@
     </div>
 
     <script>
-        const careers = [
-            { name: 'Software Developer', skills: ['programming', 'coding', 'algorithms'] },
-            { name: 'Data Scientist', skills: ['statistics', 'machine learning', 'data analysis'] },
-            { name: 'Network Engineer', skills: ['networking', 'security', 'troubleshooting'] },
-            { name: 'System Administrator', skills: ['system management', 'server', 'IT support'] },
-            { name: 'Web Developer', skills: ['HTML', 'CSS', 'JavaScript'] },
-            { name: 'Database Administrator', skills: ['SQL', 'database management', 'data modeling'] }
-        ];
-
-        function findCareer() {
-            const input = document.getElementById('skillsInput').value.toLowerCase();
-            const userSkills = input.split(',').map(skill => skill.trim());
-            let bestMatch = { name: 'No match found', matchCount: 0 };
-
-            careers.forEach(career => {
-                let matchCount = 0;
-                career.skills.forEach(skill => {
-                    if (userSkills.includes(skill)) {
-                        matchCount++;
-                    }
-                });
-                if (matchCount > bestMatch.matchCount) {
-                    bestMatch = { name: career.name, matchCount: matchCount };
-                }
+        async function findCareer() {
+            const input = document.getElementById('skillsInput').value;
+            const response = await fetch('http://localhost:3000/api/careers/match', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ skills: input.split(',') })
             });
-
-            document.getElementById('result').innerText = `Best Match: ${bestMatch.name}`;
+            const data = await response.json();
+            document.getElementById('result').innerText = `Best Match: ${data.bestMatch.name}`;
         }
     </script>
 </body>
