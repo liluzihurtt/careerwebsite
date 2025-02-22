@@ -1,0 +1,17 @@
+{
+  "name": "career-matcher-api",
+  "version": "1.0.0",
+  "description": "API to match user skills with career options",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "express": "^4.21.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": []
+}
