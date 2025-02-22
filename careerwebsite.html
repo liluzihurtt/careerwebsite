@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Career Matcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Find Your IT Career Match</h1>
+        <input type="text" id="skillsInput" placeholder="Enter your skills separated by commas">
+        <button onclick="findCareer()">Find Career</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const careers = [
+            { name: 'Software Developer', skills: ['programming', 'coding', 'algorithms'] },
+            { name: 'Data Scientist', skills: ['statistics', 'machine learning', 'data analysis'] },
+            { name: 'Network Engineer', skills: ['networking', 'security', 'troubleshooting'] },
+            { name: 'System Administrator', skills: ['system management', 'server', 'IT support'] },
+            { name: 'Web Developer', skills: ['HTML', 'CSS', 'JavaScript'] },
+            { name: 'Database Administrator', skills: ['SQL', 'database management', 'data modeling'] }
+        ];
+
+        function findCareer() {
+            const input = document.getElementById('skillsInput').value.toLowerCase();
+            const userSkills = input.split(',').map(skill => skill.trim());
+            let bestMatch = { name: 'No match found', matchCount: 0 };
+
+            careers.forEach(career => {
+                let matchCount = 0;
+                career.skills.forEach(skill => {
+                    if (userSkills.includes(skill)) {
+                        matchCount++;
+                    }
+                });
+                if (matchCount > bestMatch.matchCount) {
+                    bestMatch = { name: career.name, matchCount: matchCount };
+                }
+            });
+
+            document.getElementById('result').innerText = `Best Match: ${bestMatch.name}`;
+        }
+    </script>
+</body>
+</html>
